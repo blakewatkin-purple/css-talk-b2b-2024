@@ -1,0 +1,24 @@
+@import 'styles/_sizing.scss';
+
+.root {
+  &::backdrop {
+    background-color: red;
+    opacity: 0.5;
+  }
+
+  .closeButton {
+    background: none;
+    font-size: rem-calc(30);
+    inset: rem-calc(20) rem-calc(20) auto auto;
+    padding: 0;
+    position: absolute;
+    z-index: 2;
+
+    &:focus-visible,
+    &:focus,
+    &:hover {
+      border: none;
+      outline: none;
+    }
+  }
+}

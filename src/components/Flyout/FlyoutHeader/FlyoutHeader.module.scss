@@ -1,0 +1,21 @@
+@import 'styles/_sizing.scss';
+
+.root {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  font-size: rem-calc(20);
+  justify-content: space-between;
+  padding: 0 0 0 rem-calc(30);
+
+  > .closeButton {
+    background-color: inherit;
+    font-size: rem-calc(30);
+
+    &:focus-visible,
+    &:focus,
+    &:hover {
+      border: none;
+      outline: none;
+    }
+  }
+}

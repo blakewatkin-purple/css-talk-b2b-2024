@@ -1,0 +1,51 @@
+@use 'sass:math';
+@import 'styles/_sizing.scss';
+
+$tooltip-book-height: 250px;
+$tooltip-buttons-height: 50px;
+$tooltip-gap-height: 10px;
+$tooltip-height: $tooltip-book-height + $tooltip-buttons-height + $tooltip-gap-height;
+$tooltip-width: 350px;
+
+.root {
+  background-color: var(--cover-color, green);
+  border-radius: 8px;
+  display: grid;
+  gap: $tooltip-gap-height;
+  grid-template-rows: $tooltip-book-height $tooltip-buttons-height;
+  position: fixed;
+  position-fallback: --right-then-left-then-top;
+  width: $tooltip-width;
+
+  .actionButtons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+
+    > button {
+      line-height: 1;
+      margin: rem-calc(5);
+    }
+  }
+}
+
+@position-fallback --right-then-left-then-top {
+  @try {
+    left: calc(anchor(right) + 6px);
+    top: calc(
+      anchor(top) + math.div(375px - $tooltip-height, 2)
+    ); // will be able to use anchor-size(height) once it's implemented
+  }
+
+  @try {
+    right: calc(anchor(left) + 6px);
+    top: calc(
+      anchor(top) + math.div(375px - $tooltip-height, 2)
+    ); // will be able to use anchor-size(height) once it's implemented
+  }
+
+  @try {
+    bottom: calc(anchor(top) - 6px);
+    left: calc(anchor(center) - math.div($tooltip-width, 2));
+  }
+}

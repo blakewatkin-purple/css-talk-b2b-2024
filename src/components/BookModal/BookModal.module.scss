@@ -1,0 +1,61 @@
+@import 'styles/_sizing.scss';
+
+@keyframes bookopen {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: rotateX(-7deg) rotateY(-90deg);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(-180deg);
+  }
+}
+
+.root {
+  background: none;
+  border: none;
+  height: 90dvh;
+  left: 0;
+  overflow: hidden;
+  position: relative;
+  transform: translateX(-25%);
+  width: 80dvw;
+
+  .backCover {
+    background-color: var(--cover-color, red);
+    border-radius: 0 4px 4px 0;
+    height: calc(100% - 12em);
+    inset: 3em 0 10em 50%;
+    padding: 1em;
+    position: absolute;
+  }
+
+  .frontCover {
+    background-color: var(--cover-color, red);
+    inset: 3em 0 7em 50%;
+    position: absolute;
+    animation: bookopen 1.5s linear forwards;
+    transform-origin: left center;
+  }
+
+  &::backdrop {
+    background-color: black;
+    opacity: 0.5;
+  }
+
+  > .closeButton {
+    background: none;
+    font-size: rem-calc(30);
+    inset: rem-calc(60) rem-calc(17) auto auto;
+    padding: 0;
+    position: absolute;
+
+    &:focus-visible,
+    &:focus,
+    &:hover {
+      border: none;
+      outline: none;
+    }
+  }
+}

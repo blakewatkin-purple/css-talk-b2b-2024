@@ -1,0 +1,121 @@
+@import 'styles/_sizing.scss';
+@import 'styles/_theme.scss';
+@import 'styles/_visibly-hidden.scss';
+
+.root {
+  border-radius: 6px;
+  container: book / inline-size;
+
+  .book {
+    background-color: $primary-color;
+    border-radius: 6px;
+    color: $text-light;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    line-height: 1;
+    padding: 6px;
+  }
+
+  // Sitting on the shelf
+  @container book (width < 350px) {
+    .book {
+      background: inherit;
+      cursor: pointer;
+      height: 275px;
+      padding: 50px 6px;
+      -webkit-user-select: none;
+      user-select: none;
+
+      &::before,
+      &::after {
+        content: '';
+        border-radius: 0;
+        border-bottom: 5px solid $tertiary-color;
+        border-top: 5px solid $tertiary-color;
+        height: 7px;
+        position: absolute;
+      }
+
+      &::before {
+        inset: 30px 0 auto 0;
+      }
+
+      &::after {
+        inset: auto 0 30px 0;
+      }
+
+      .title {
+        margin: 0;
+        white-space: wrap;
+        writing-mode: vertical-rl;
+      }
+
+      .bookCover,
+      .description {
+        @include visually-hidden();
+      }
+    }
+  }
+
+  // Hover state
+  @container book (width >= 350px) and (width < 400px) {
+    .book {
+      background-color: unset;
+      display: flex;
+      flex-flow: column nowrap;
+      height: 100%;
+      justify-content: space-between;
+
+      .description {
+        margin-top: 0;
+      }
+
+      .bookCover {
+        @include visually-hidden();
+      }
+    }
+  }
+
+  // Flyout
+  @container book (width >= 400px) and (width < 550px) {
+    .book {
+      background-color: $secondary-color;
+      display: grid;
+      grid-template-areas:
+        'cover title'
+        'cover description';
+
+      &:has(.bookCover) {
+        gap: 0 rem-calc(10);
+      }
+
+      .bookCover {
+        align-self: center;
+        grid-area: cover;
+      }
+      .title {
+        grid-area: title;
+      }
+      .description {
+        grid-area: description;
+      }
+    }
+  }
+
+  // Modal
+  @container book (width >= 550px) {
+    .book {
+      background-color: #efe5b8;
+      border-radius: 2px;
+      color: $text-dark;
+      height: calc(90dvh - 10em);
+      justify-content: flex-start;
+      padding: 0 rem-calc(30);
+
+      .bookCover {
+        @include visually-hidden();
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@use 'sass:math';
+
+$rootFontSize: 15;
+$rootFontSizePx: #{$rootFontSize}px;
+
+@function rem-calc($px) {
+  @return #{calc($px / $rootFontSize)}rem;
+}

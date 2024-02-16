@@ -1,0 +1,130 @@
+@import 'styles/_sizing.scss';
+@import 'styles/_theme.scss';
+
+@function shade($color, $secondaryColor) {
+  @return mix($secondaryColor, $color, 50%);
+}
+
+$warning-count: 5;
+$danger-count: 8;
+
+.flyout {
+  color: $text-light;
+
+  &:has(.flyoutContent > .content > .books :nth-child(#{$warning-count})) .flyoutButton .counter {
+    background: $warning-color;
+    border-color: $warning-color;
+  }
+
+  &:has(.flyoutContent > .content > .books :nth-child(#{$danger-count})) .flyoutButton .counter {
+    background: $danger-color;
+    border-color: $danger-color;
+  }
+
+  .flyoutButton {
+    $cbe-button-border-radius: 12;
+    $cbe-button-box-shadow-blur: 3;
+    $cbe-button-min-height: 100;
+
+    align-items: center;
+    background: transparent linear-gradient($dark-color 0%, shade($dark-color, black) 100%) 0% 0%
+      no-repeat padding-box;
+    border-radius: inherit;
+    box-shadow: rem-calc(-$cbe-button-box-shadow-blur) 0 rem-calc($cbe-button-box-shadow-blur)
+      rgba(21, 21, 21, 0.4);
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: rem-calc(22);
+    gap: rem-calc(10);
+    justify-content: center;
+    min-width: rem-calc($cbe-button-min-height);
+    padding: rem-calc(6) rem-calc(18);
+    text-transform: uppercase;
+    transition: box-shadow 0.4s linear;
+
+    .counter {
+      background: $success-color;
+      border: 1px solid $success-color;
+      border-radius: 50%;
+      height: rem-calc(30);
+      width: rem-calc(30);
+    }
+
+    &:focus-visible,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .flyoutContent {
+    background-color: shade($dark-color, black);
+    border-left: 8px solid shade($dark-color, black);
+    border-radius: 8px 0px 0px 8px;
+    box-shadow: 12px 0 12px black;
+    padding-bottom: rem-calc(12);
+    width: rem-calc(450);
+
+    .content {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      height: 100%;
+
+      .headerText {
+        font-size: rem-calc(22);
+      }
+
+      .books {
+        display: grid;
+        gap: rem-calc(12);
+        overflow: auto;
+
+        &:empty:before {
+          content: 'There are no books in your to be read list.';
+          font-size: rem-calc(18);
+          font-style: italic;
+          margin: rem-calc(45) rem-calc(10);
+          text-align: center;
+        }
+
+        &:not(:empty) {
+          padding: rem-calc(12) rem-calc(16) 0 rem-calc(8);
+        }
+
+        &:has(:nth-child(#{$warning-count})):before {
+          background-color: $warning-color;
+          border-radius: 6px;
+          content: "If you spent more time actually reading you wouldn't have such a long to be read list.";
+          font-size: rem-calc(18);
+          padding: rem-calc(6) 0;
+        }
+
+        &:has(:nth-child(#{$danger-count})):before {
+          background-color: $danger-color;
+          border-radius: 6px;
+          content: 'No seriously, you have a problem.';
+          font-size: rem-calc(18);
+          padding: rem-calc(6) 0;
+        }
+
+        .bookWrapper {
+          position: relative;
+
+          .closeButton {
+            background: none;
+            font-size: rem-calc(24);
+            inset: rem-calc(2) rem-calc(2) auto auto;
+            padding: 0;
+            position: absolute;
+
+            &:focus-visible,
+            &:focus,
+            &:hover {
+              border: none;
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

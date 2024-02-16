@@ -1,0 +1,33 @@
+.slidev-layout {
+  background-color: #f5ede2;
+}
+
+:is(.slidev-layout:not(.statement) :not(.col-right)) h1 {
+  color: #1f2c60;
+}
+
+.slidev-layout.statement:not(.disclaimer) :is(h1, div) {
+  color: white;
+  font-size: 36px;
+  letter-spacing: 0.17ch;
+  line-height: 50px;
+}
+
+html:not(.dark) .shikiji {
+  background-color: #f5ede2 !important;
+}
+
+.col-right h1 {
+  color: #f5ede2;
+}
+
+:is(.slidev-layout.cover, .slidev-layout.default.toc) code {
+  background-color: #747373;
+  border-radius: 6px;
+  color: white;
+  padding: 4px 8px;
+}
+.slidev-layout code::after,
+.slidev-layout code::before {
+  content: '';
+}
